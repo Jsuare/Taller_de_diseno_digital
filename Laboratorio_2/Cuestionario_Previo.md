@@ -27,7 +27,7 @@ ll Semestre || 02/09/2025
 ### 1.Investigue cuál es el funcionamiento de las máquinas de estado finito. Explique la diferencia entre una máquina de Moore y una de Mealy, y muestre la diferencia por medio de diagramas de estados y señales.
  Una máquina de estados finitos (FSM) es un modelo matemático que describe el comportamiento de un sistema secuencial mediante un conjunto finito de estados. Estas máquinas funcionan con un estado actual, un conjunto de entradas, un conjunto de salidas, y un conjunto de reglas de transición que definen cómo pasar de un estado a otro según las entradas. Siempre existe un estado inicial y, dependiendo de la entrada recibida, la máquina cambia de estado y genera una salida
 En una máquina de Mealy, la salida depende tanto del estado actual como de la entrada. Esto permite que la salida cambie de manera inmediata cuando cambia la entrada, sin necesidad de esperar una transición de estado. Como resultado, las máquinas de Mealy suelen requerir menos estados y reaccionan más rápido, aunque sus salidas pueden ser menos estables, ya que están directamente influenciadas por las variaciones de la entrada. [1]
-
+![Diagrama del Bloque 1](Imagenes/Captura20%de20%pantalla20%2025-09-0320%140356.png)
 Figura 1. Máquina de estados Mealy
 En una máquina de Moore, la salida depende únicamente del estado actual en el que se encuentra el sistema. Esto significa que la salida sólo cambia cuando ocurre una transición de estado. La consecuencia es que las salidas son más estables, aunque presentan un retardo porque requieren que el sistema cambie de estado para que se actualicen. Generalmente, estas máquinas necesitan más estados para implementar un mismo comportamiento en comparación con una máquina de Mealy. [2]
 
