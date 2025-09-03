@@ -34,6 +34,7 @@ Figura 1. Máquina de estados Mealy
 
 En una máquina de Moore, la salida depende únicamente del estado actual en el que se encuentra el sistema. Esto significa que la salida sólo cambia cuando ocurre una transición de estado. La consecuencia es que las salidas son más estables, aunque presentan un retardo porque requieren que el sistema cambie de estado para que se actualicen. Generalmente, estas máquinas necesitan más estados para implementar un mismo comportamiento en comparación con una máquina de Mealy. [2]
 
+![Diagrama del Bloque 1](Imagenes/Captura%20de%20pantalla%202025-09-03%20140404.png)
 
 Figura 2. Máquina de estados Moore
 
@@ -53,7 +54,8 @@ En el caso del tiempo de contaminación este es el tiempo mínimo que tarda un c
 Una ruta crítica en un circuito digital como lo es en la secuencia de compuertas lógicas o secuencial es la ruta o el cableado que interconecta todas estas compuertas con el mayor tiempo de propagación total entre un registro de inicio y un registro destino, es decir es el camino que atraviesa la señal por medio de varias compuertas lógicas hasta llegar a su destino. Se define también como el retraso máximo que necesita un circuito para que una señal viaje desde un punto inicial hasta un punto final [5], esto debe tomar importancia ya que el factor principal para delimitar la velocidad de operación en un sistema digital es esta ruta crítica. Si tomamos el ejemplo de un procesador con pipeline, éste posee varias etapas de secuencias lógicas combinacionales más diferentes registros, por lo cual desde una etapa uno hasta una etapa cinco, debe de haber una ruta que interconecte todas las partes de este procesador, por lo cual esta ruta crítica dependiendo de su longitud para atravesar todas estas etapas determinará el tiempo de velocidad de procesamiento del circuito digital por lo cual si en la etapa uno la ruta crítica es rápida pero en la etapa tres se presenta una velocidad más lenta esto se verá reflejado en la ruta crítica total del circuito. [6] Definiendo así el ciclo de reloj mínimo que se puede usar en todo el procesador, si una etapa tarda demasiado puede reducir la ganancia del pipeline y obligar a usar un reloj más lento.
 Claramente si estamos hablando del tiempo este estará ligado a la frecuencia, por lo cual vamos a tener una relación con la frecuencia máxima al instalar ando de los circuitos combinacionales y claramente su ruta crítica. La frecuencia máxima de operación de un circuito sin errores o ideal esta por la siguiente ecuación:
 
-Con 
+![Diagrama del Bloque 1](Imagenes/Captura%20de%20pantalla%202025-09-03%20151826.png)
+
 dónde él pidió mínimo corresponde al período mínimo de tiempo que puede ejecutar un reloj para alcanzar la velocidad esperada en la ruta crítica como dijimos anteriormente. De esta manera sabiendo el tiempo propagación máxima de la lógica combinacional entre registros, más el tiempo de preparación que necesita el flip flop nos dará la frecuencia a la que puede trabajar en circuito de manera que respete los tiempos y evitando fallas en las rutas críticas del circuito convencional. A lo que podemos decir, mientras más larga y compleja sea la ruta crítica más grande será el tiempo de propagación y menor será la frecuencia máxima del reloj. Por lo que si queremos aumentar la frecuencia de un procesador se deben de emplear etapas más optimizadas en la lógica combinacional.
 
 ### 4. Investigue sobre las mejores prácticas para la asignación de relojes y división de frecuencia en FPGAs. En este apartado haga énfasis en el uso de las entradas habilitadoras de reloj (clock enables) presentes en las celdas de la FPGA, para lograr tener tiempos de ejecución diferentes a lo largo del sistema mientras se utiliza un solo reloj. 
@@ -73,9 +75,13 @@ Cummings (2008) explica que la metastabilidad ocurre cuando una señal que no es
 Según Xilinx (2009), el método más usado para señales de un bit es el sincronizador de dos flip-flops en cascada, que da tiempo a la señal para estabilizarse antes de ser usada por la lógica. En el caso de pulsadores, Horowitz y Hill (2015) recomiendan combinar la sincronización con un debouncer analógico o digital, de manera que la señal final sea tanto estable como libre de rebotes.
 sincronizador de dos flip-flops
 
+![Diagrama del Bloque 1](Imagenes/Captura%20de%20pantalla%202025-09-03%20140415.png)
+
 Figura 3.sincronizador de dos flip-flops
 El circuito mostrado es un sincronizador de dos flip-flops, aplicado a la entrada de un pulsador o interruptor. La señal (btn_in) pasa primero por el registro ff1_reg y luego por btn_sync_reg, ambos gobernados por el reloj (clk). De esta forma, la salida (btn_sync) se obtiene estable y libre de problemas de señales asíncronas, cumpliendo con la sincronización necesaria para el uso de pulsadores e interruptores en sistemas digitales.
 debouncer digital
+
+![Diagrama del Bloque 1](Imagenes/Captura%20de%20pantalla%202025-09-03%20140427.png)
 
 Figura 4. debouncer digita
 El circuito mostrado es un debouncer digital para pulsadores e interruptores. La señal (btn_in) pasa primero por un contador que mide si el cambio se mantiene estable durante cierto tiempo. Cuando la entrada deja de rebotar, el valor se guarda en el registro de estado y se entrega a la salida (btn_out). De esta forma se eliminan los rebotes mecánicos y se obtiene una señal limpia y confiable para el sistema digital.
