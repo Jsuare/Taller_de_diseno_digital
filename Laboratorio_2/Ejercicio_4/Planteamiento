@@ -1,0 +1,11 @@
+El data_in es el dato que se quiere guardar dentro del banco de registros. Por ejemplo, si se desea guardar el valor A5 en el registro número 3, se asigna data_in = A5.
+
+El addr_rd corresponde al número de registro en el cual se va a guardar el dato. Continuando con el ejemplo anterior, si se quiere guardar en el registro 3, entonces addr_rd = 3.
+
+La señal we (write enable) es la que habilita la escritura. Es como una orden que confirma que el dato debe guardarse. Solo cuando we=1 y ocurre un flanco positivo del reloj, el valor de data_in se escribe en el registro indicado por addr_rd.
+
+El clk es la señal de reloj que marca los tiempos de ejecución dentro del sistema. Las escrituras únicamente suceden en el flanco positivo de esta señal.
+
+Las salidas rs1 y rs2 permiten la lectura de los registros. Sirven para ver al mismo tiempo lo que contienen dos registros distintos. La dirección addr_rs1 indica qué registro se mostrará en la salida rs1, mientras que addr_rs2 indica qué registro se mostrará en la salida rs2. Por ejemplo, si addr_rs1 = 3, entonces rs1 mostrará el contenido del registro 3; y si addr_rs2 = 0, entonces rs2 mostrará el contenido del registro 0.
+
+Finalmente, la señal rst corresponde al reset. Su función es limpiar todos los registros y colocarlos en cero. En este diseño, además, el registro 0 siempre permanece en cero aunque se intente escribirle otro valor.

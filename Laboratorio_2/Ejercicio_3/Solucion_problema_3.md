@@ -14,7 +14,7 @@ post-implementación. Puede ajustar el tiempo de generación de números pseudo-
 para reducir el tiempo de simulación.
 6. Descargue el diseño a la tarjeta con FPGA y verifíquelo. Asegúrese de asignar apropiadamente las señales a las entradas y salidas del chip de FPGA a los dispositivos conectados.
 
-
+![Diagrama del Bloque 1](../Imagenes/Captura%20de%20pantalla%202025-09-03%20141131.png)
 
 # Objetivo 
 Desarrollar un bloque decodificador de hexadecimal (4 bits) a un display de 7 segmentos.
@@ -22,9 +22,7 @@ Desarrollar un bloque decodificador de hexadecimal (4 bits) a un display de 7 se
 # Planteamiento de la solución
 Diseñar un decodificador 4→7 para display de 7 segmentos que muestre valores hexadecimales (0..F). Donde por medio de los 16 interruptores del la tarjeta Nexy 4 organizarmos en 4 grupos de 4 (cada grupo = un nibble) y, usando 2 botones, seleccionar cuál de las 4 entradas mostrar en el display mediante multiplexado.
 
-
-
-
+![Diagrama del Bloque 1](../Imagenes/3.png)
 
 ## Entradas:
 Los interruptores de la NExy 4 que esta bajo el nombre sw[15:0] 
@@ -89,9 +87,6 @@ Tenemos 4 bloques que conforma el top:
 Se creó un diseño de manera que podamos establecer un contador de valores random cada 2 segundos por medio del display de la FPGA, de esta manera podemos ver qué tenemos un módulo top el cual corresponde a la parte principal del sistema digital coma en el cual éste almacena y muestra en el display de 7 segmentos un número pseudo aleatorio de 16 bits (de manera que sólo vamos a trabajar por medio de cuatro displays de los 8 que trae la tarjeta), de esa manera logramos mantener el parámetro  de bits. Ese generador de números aleatorios en formato hexadecimal sea por medio del módulo LFSR qué produce la secuencia pseudo aleatorio a través de un divisor de reloj dónde este divide los 2 segundos para mostrar el nuevo valor de manera que en el primer segundo c determina el valor y en el siguiente segundo se escribe el valor. Dicho pulso se detecta mediante lógica de flanco ascendente para habilitar la escritura del registro mediante el formato pipo de 16 bits, el cual almacena el valor generado, para posteriormente por medio de un contador rápido a través de un multiplexor de los displays se selecciona la secuencia correcta para escribir cada dígito de cuatro bits se realiza su conversión mediante el decodificador de 7 segmentos y esta forma cada 2 segundos se actualiza el valor mostrado a través de los cuatro displays activos de las FPGA. 
 Cabe aclarar que el funcionamiento del display de 7 segmentos ya se realizó su explicación y funcionamiento en anteriores proyectos. 
 
-<<<<<<< HEAD
-
-=======
 ## Explicación de cada modulo. 
 1. Generación del número pseudoaleatorio (LFSR): Este módulo nos servirá como el uso de un registro de retroalimentación lineal conocido como LFSR, el cual será el que produce la secuencia pseudo aleatoria de 16 bits. Como sus siglas en ingles un LFSR (Linear Feedback Shift Register) es un registro de desplazamiento con retroalimentación lineal que genera una secuencia de bits pseudoaleatoria. Funciona desplazando sus valores en cada pulso de reloj y calculando el nuevo bit de entrada como una combinación lineal (XOR) de ciertos bits del registro (llamados taps). Por lo cual es un modelo sumamente importante ya que éste se encargará demostrar valores siempre manteniendo el parámetro de 16 bits, pero si recordamos no necesariamente son números si no es una secuencia qué parece aleatorios pero que sigue un patrón repetitivo nada más que al ser de un parámetro de 16 bits eso quiere decir que va a generar 65535 valores distintos antes de repetirse por lo cual una de las pruebas es verificar que ningún valor se repita antes de esas de esas repeticiones. Claramente este modelo tiene una relación muy estricta con el registro que es el lugar donde se guarda para luego muestras en el display. [Ver código](lfsr16.sv)
 
@@ -126,4 +121,3 @@ En la simulación se observa el comportamiento temporal del sistema diseñado. L
 En la salida del decodificador de 7 segmentos (a_to_g[6:0]) se aprecia cómo van cambiando los patrones hexadecimales que representan cada dígito que se muestra en los displays.
 La señal an[7:0] controla la activación de los displays; en la simulación se evidencia la rotación entre ellos según el multiplexado, encendiendo uno a la vez para mostrar el dígito correspondiente. Esto coincide con el valor presente en q_prev[15:0], que corresponde al número pseudoaleatorio generado y almacenado en el registro PIPO.
 Finalmente, la señal ciclo[31:0] refleja el conteo interno del sistema, avanzando en forma binaria y asegurando la correcta temporización del multiplexado. En conjunto, la simulación valida que los diferentes módulos trabajan de manera coordinada: el LFSR genera los números, el registro mantiene el valor estable y el multiplexor los presenta secuencialmente en los displays.
->>>>>>> Solucion_ejercicio_3
