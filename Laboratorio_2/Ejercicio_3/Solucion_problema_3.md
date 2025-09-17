@@ -14,7 +14,7 @@ post-implementación. Puede ajustar el tiempo de generación de números pseudo-
 para reducir el tiempo de simulación.
 6. Descargue el diseño a la tarjeta con FPGA y verifíquelo. Asegúrese de asignar apropiadamente las señales a las entradas y salidas del chip de FPGA a los dispositivos conectados.
 
-
+![Diagrama del Bloque 1](../Imagenes/Captura%20de%20pantalla%202025-09-03%20141131.png)
 
 # Objetivo 
 Desarrollar un bloque decodificador de hexadecimal (4 bits) a un display de 7 segmentos.
@@ -22,9 +22,7 @@ Desarrollar un bloque decodificador de hexadecimal (4 bits) a un display de 7 se
 # Planteamiento de la solución
 Diseñar un decodificador 4→7 para display de 7 segmentos que muestre valores hexadecimales (0..F). Donde por medio de los 16 interruptores del la tarjeta Nexy 4 organizarmos en 4 grupos de 4 (cada grupo = un nibble) y, usando 2 botones, seleccionar cuál de las 4 entradas mostrar en el display mediante multiplexado.
 
-
-
-
+![Diagrama del Bloque 1](../Imagenes/3.png)
 
 ## Entradas:
 Los interruptores de la NExy 4 que esta bajo el nombre sw[15:0] 
