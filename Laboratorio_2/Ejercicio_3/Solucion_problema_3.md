@@ -128,3 +128,5 @@ En la simulación se observa el comportamiento temporal del sistema diseñado. L
 En la salida del decodificador de 7 segmentos (a_to_g[6:0]) se aprecia cómo van cambiando los patrones hexadecimales que representan cada dígito que se muestra en los displays.
 La señal an[7:0] controla la activación de los displays; en la simulación se evidencia la rotación entre ellos según el multiplexado, encendiendo uno a la vez para mostrar el dígito correspondiente. Esto coincide con el valor presente en q_prev[15:0], que corresponde al número pseudoaleatorio generado y almacenado en el registro PIPO.
 Finalmente, la señal ciclo[31:0] refleja el conteo interno del sistema, avanzando en forma binaria y asegurando la correcta temporización del multiplexado. En conjunto, la simulación valida que los diferentes módulos trabajan de manera coordinada: el LFSR genera los números, el registro mantiene el valor estable y el multiplexor los presenta secuencialmente en los displays.
+
+![Diagrama del Bloque 1](../Imagenes/Captura%20de%20pantalla%202025-09-17%20114029.png) 
