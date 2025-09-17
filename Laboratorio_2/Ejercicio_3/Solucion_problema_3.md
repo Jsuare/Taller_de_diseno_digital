@@ -14,7 +14,7 @@ post-implementación. Puede ajustar el tiempo de generación de números pseudo-
 para reducir el tiempo de simulación.
 6. Descargue el diseño a la tarjeta con FPGA y verifíquelo. Asegúrese de asignar apropiadamente las señales a las entradas y salidas del chip de FPGA a los dispositivos conectados.
 
-![Diagrama del Bloque 1](Laboratorio_2/Imagenes/Captura%20de%20pantalla%202025-09-03%20141131.png)
+![Diagrama del Bloque 1](../Imagenes/Captura%20de%20pantalla%202025-09-03%20141131.png)
 
 # Objetivo 
 Desarrollar un bloque decodificador de hexadecimal (4 bits) a un display de 7 segmentos.
