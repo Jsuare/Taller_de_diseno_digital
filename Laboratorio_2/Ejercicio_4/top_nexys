@@ -38,3 +38,14 @@ module top_nexys (
     .addr_rs1 (SW[13:11]),   // Se asigna la dirección de lectura 1 desde SW[13:11].
     .addr_rs2 (3'b000),      // Se fija la dirección de lectura 2 a 0: siempre se lee R0.
     .rs1      (rs1),         // Se recibe la lectura del puerto 1.
+    .rs2      (rs2)          // Se recibe la lectura del puerto 2 (R0=00 por diseño).
+  );
+
+  // --- Presentación en LEDs (latcheados al reloj para evitar parpadeos)
+  always_ff @(posedge CLK100MHZ) begin
+    LED[7:0]  <= rs1;  // Se registran en LED[7:0] los 8 bits leídos por rs1 (lectura visible y estable).
+    LED[15:8] <= rs2;  // Se registran en LED[15:8] los 8 bits leídos por rs2 (R0 = 00), evitando glitches.
+  end
+
+endmodule
+
