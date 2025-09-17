@@ -1,0 +1,95 @@
+`timescale 1ns/1ps   // Se establece la unidad de tiempo en 1 ns y la precisión en 1 ps.
+
+module tb_register_file;
+
+  // Parámetros del diseño bajo prueba (DUT)
+  localparam int W = 8;   // Se define el ancho de palabra en 8 bits.
+  localparam int N = 3;   // Se define el número de bits de dirección (2^N = 8 registros).
+
+  // Señales de prueba conectadas al DUT
+  logic                 clk;        // Señal de reloj.
+  logic                 rst;        // Señal de reset síncrono activo en alto.
+  logic                 we;         // Señal de habilitación de escritura.
+  logic [N-1:0]         addr_rd;    // Dirección del registro destino de escritura.
+  logic [N-1:0]         addr_rs1;   // Dirección del registro a leer por el puerto rs1.
+  logic [N-1:0]         addr_rs2;   // Dirección del registro a leer por el puerto rs2.
+  logic [W-1:0]         data_in;    // Dato que será escrito cuando we=1 en flanco positivo.
+  logic [W-1:0]         rs1;        // Salida de lectura del puerto 1.
+  logic [W-1:0]         rs2;        // Salida de lectura del puerto 2.
+
+  // Instancia del DUT con parámetros W y N; se conectan todas las señales de prueba.
+  register_file #(.W(W), .N(N)) dut (
+    .clk      (clk),      // Se conecta el reloj.
+    .rst      (rst),      // Se conecta el reset síncrono.
+    .we       (we),       // Se conecta la habilitación de escritura.
+    .addr_rd  (addr_rd),  // Se conecta la dirección de escritura.
+    .data_in  (data_in),  // Se conecta el dato de entrada para escritura.
+    .addr_rs1 (addr_rs1), // Se conecta la dirección de lectura del puerto 1.
+    .addr_rs2 (addr_rs2), // Se conecta la dirección de lectura del puerto 2.
+    .rs1      (rs1),      // Se recibe la salida de lectura del puerto 1.
+    .rs2      (rs2)       // Se recibe la salida de lectura del puerto 2.
+  );
+
+  // Generación del reloj: se inicializa en 0 y se invierte cada 5 ns (periodo 10 ns → 100 MHz).
+  initial clk = 1'b0;
+  always  #5 clk = ~clk;
+
+  // Bloque de estímulos: se describe la secuencia de reset, escrituras y lecturas.
+  initial begin
+    // Estado inicial de señales: se aplica reset y se ponen entradas en cero.
+    rst      = 1'b1;      // Se mantiene el reset activo inicialmente.
+    we       = 1'b0;      // Se deshabilita la escritura.
+    addr_rd  = '0;        // Se inicializa la dirección de escritura.
+    addr_rs1 = '0;        // Se inicializa la dirección de lectura rs1.
+    addr_rs2 = '0;        // Se inicializa la dirección de lectura rs2.
+    data_in  = '0;        // Se inicializa el dato de entrada.
+
+    // Reset de 2 ciclos: se espera a que pasen dos flancos positivos y se libera el reset.
+    repeat (2) @(posedge clk);
+    rst = 1'b0;           // Se desactiva el reset para comenzar la operación normal.
+
+    // ---- Escritura: se prepara y se escribe 0xA5 en el registro 3.
+    @(negedge clk);
+    we      <= 1'b1;      // Se habilita la escritura.
+    addr_rd <= 3;         // Se selecciona el registro 3 como destino.
+    data_in <= 8'hA5;     // Se coloca el dato 0xA5 para escribir.
+    @(posedge clk);       // Se realiza la escritura efectiva en el flanco positivo.
+    @(negedge clk);
+    we      <= 1'b0;      // Se deshabilita la escritura.
+
+    // ---- Lectura: se leen reg 3 por rs1 y R0 por rs2.
+    addr_rs1 <= 3;        // Se direcciona el registro 3 al puerto rs1.
+    addr_rs2 <= 0;        // Se direcciona el registro 0 al puerto rs2.
+    #1;                   // Se añade un pequeño margen para la propagación combinacional.
+    $display("Lectura 1 -> rs1(reg3)=%02h  rs2(reg0)=%02h", rs1, rs2); // Se reportan los valores leídos.
+
+    // ---- Verificación: se intenta escribir R0 (solo lectura) y se comprueba que permanezca en 0.
+    @(negedge clk);
+    we      <= 1'b1;      // Se habilita la escritura.
+    addr_rd <= 0;         // Se intenta seleccionar el registro 0 como destino (no debe cambiar).
+    data_in <= 8'hFF;     // Se coloca 0xFF como dato de prueba.
+    @(posedge clk);       // Se produce el intento de escritura en el flanco positivo.
+    @(negedge clk);
+    we      <= 1'b0;      // Se deshabilita la escritura.
+    addr_rs1 <= 0;        // Se direcciona R0 para verificar su contenido.
+    #1;                   // Se espera mínima latencia combinacional.
+    $display("R0 tras intento de escritura = %02h (esperado 00)", rs1); // Se verifica que siga en 0.
+
+    // ---- Segundo ejemplo: se escribe 0x3C en el registro 5 y se realiza la lectura.
+    @(negedge clk);
+    we      <= 1'b1;      // Se habilita la escritura.
+    addr_rd <= 5;         // Se selecciona el registro 5.
+    data_in <= 8'h3C;     // Se coloca el dato 0x3C.
+    @(posedge clk);       // Se confirma la escritura en flanco positivo.
+    @(negedge clk);
+    we      <= 1'b0;      // Se deshabilita la escritura.
+    addr_rs1 <= 5;        // Se direcciona el registro 5 para lectura.
+    #1;                   // Se considera la propagación combinacional.
+    $display("Lectura 2 -> rs1(reg5)=%02h (esperado 3C)", rs1); // Se reporta la lectura esperada.
+
+    // Finalización de la prueba: se espera un tiempo y se termina la simulación.
+    #20;
+    $finish;
+  end
+
+endmodule
