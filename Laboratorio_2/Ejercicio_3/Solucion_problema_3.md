@@ -85,3 +85,8 @@ Tenemos 4 bloques que conforma el top:
 4. Por ultimo el contador de display el cual será la señal de muestra el contenido del registro en los 4 digitos.
 
 # Solución del problema.
+
+Se creó un diseño de manera que podamos establecer un contador de valores random cada 2 segundos por medio del display de la FPGA, de esta manera podemos ver qué tenemos un módulo top el cual corresponde a la parte principal del sistema digital coma en el cual éste almacena y muestra en el display de 7 segmentos un número pseudo aleatorio de 16 bits (de manera que sólo vamos a trabajar por medio de cuatro displays de los 8 que trae la tarjeta), de esa manera logramos mantener el parámetro  de bits. Ese generador de números aleatorios en formato hexadecimal sea por medio del módulo LFSR qué produce la secuencia pseudo aleatorio a través de un divisor de reloj dónde este divide los 2 segundos para mostrar el nuevo valor de manera que en el primer segundo c determina el valor y en el siguiente segundo se escribe el valor. Dicho pulso se detecta mediante lógica de flanco ascendente para habilitar la escritura del registro mediante el formato pipo de 16 bits, el cual almacena el valor generado, para posteriormente por medio de un contador rápido a través de un multiplexor de los displays se selecciona la secuencia correcta para escribir cada dígito de cuatro bits se realiza su conversión mediante el decodificador de 7 segmentos y esta forma cada 2 segundos se actualiza el valor mostrado a través de los cuatro displays activos de las FPGA. 
+Cabe aclarar que el funcionamiento del display de 7 segmentos ya se realizó su explicación y funcionamiento en anteriores proyectos. 
+
+
