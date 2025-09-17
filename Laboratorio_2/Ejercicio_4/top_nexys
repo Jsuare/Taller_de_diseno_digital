@@ -1,0 +1,40 @@
+`timescale 1ns/1ps
+// Nota: se retiró `default_nettype none` para evitar conflictos de tipado
+//       mientras se termina el bring-up del proyecto en la FPGA.
+
+// Top para Nexys 4 DDR
+// BTNC = escribir (pulso 1 clk), BTNU = reset
+// SW[7:0]   -> data_in
+// SW[10:8]  -> addr_rd  (dirección de escritura)
+// SW[13:11] -> addr_rs1 (dirección de lectura 1)
+// addr_rs2  = 0  (LED[15:8] muestra siempre R0 = 00)
+module top_nexys (
+  input  logic        CLK100MHZ,  // Se recibe el reloj principal de 100 MHz de la tarjeta.
+  input  logic        BTNC,       // Se recibe el botón central: se usa para generar un pulso de escritura.
+  input  logic        BTNU,       // Se recibe el botón superior: se usa como reset síncrono del banco de registros.
+  input  logic [15:0] SW,         // Se reciben 16 switches: se asignan a datos y direcciones.
+  output logic [15:0] LED         // Se manejan 16 LEDs: se utilizan para visualizar lecturas.
+);
+
+  // --- Detector de flanco para BTNC (convierte el botón en un pulso we de 1 ciclo)
+  logic s0, s1, prev;
+  always_ff @(posedge CLK100MHZ) begin
+    s0   <= BTNC;   // Se sincroniza el botón a la primera etapa de flip-flop (evita metaestabilidad).
+    s1   <= s0;     // Se aplica una segunda etapa de sincronización.
+    prev <= s1;     // Se guarda el valor previo para poder detectar el flanco.
+  end
+  wire we_pulse = s1 & ~prev;  // Se detecta el flanco de subida: se genera un pulso de 1 ciclo para 'we'.
+
+  // --- Instancia del banco de registros (8 bits por palabra, 8 registros)
+  localparam int W = 8, N = 3;   // Se parametriza el ancho de palabra (W) y el número de bits de dirección (N).
+  logic [W-1:0] rs1, rs2;        // Se declaran las salidas de lectura del banco de registros.
+
+  register_file #(.W(W), .N(N)) u_rf (
+    .clk      (CLK100MHZ),   // Se conecta el reloj de 100 MHz al banco de registros.
+    .rst      (BTNU),        // Se conecta el botón BTNU como reset del banco de registros.
+    .we       (we_pulse),    // Se conecta el pulso de escritura de un ciclo al 'we'.
+    .addr_rd  (SW[10:8]),    // Se asigna la dirección de escritura desde SW[10:8].
+    .data_in  (SW[7:0]),     // Se asigna el dato de entrada desde SW[7:0].
+    .addr_rs1 (SW[13:11]),   // Se asigna la dirección de lectura 1 desde SW[13:11].
+    .addr_rs2 (3'b000),      // Se fija la dirección de lectura 2 a 0: siempre se lee R0.
+    .rs1      (rs1),         // Se recibe la lectura del puerto 1.
