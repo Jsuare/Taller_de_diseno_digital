@@ -22,7 +22,9 @@
 
 ## f)El module top:
 
-  Es utilizado para realizar todas las conexiones necesarias 
+  Es utilizado para realizar todas las conexiones necesarias.
+  Las conexiones quedan de la siguiente manera: 
+  ![Diagrama del Bloque 1](../../Imagenes/Diagrama_TOP_digital.PNG)
 
 # Resultados importantes 
 
