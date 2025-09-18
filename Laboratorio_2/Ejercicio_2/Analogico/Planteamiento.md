@@ -3,7 +3,7 @@
 ## a) Filtro anti rebote:
 
   Está parte es física, se implemento por medio de un LMC555, para mayor estabildiad y que no tenga tanto ruido al pulsar el botón.
-  ![Diagrama del Bloque 1](../../Imagenes/Digital.PNG)
+  ![Diagrama del Bloque 1](../../Imagenes/Diseno_fisico_mul.PnG)
 
 ## b) Sincronizador:
 
