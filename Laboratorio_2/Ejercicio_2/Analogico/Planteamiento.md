@@ -26,7 +26,9 @@
 
 ## f)El module top:
 
-  Es utilizado para realizar todas las conexiones necesarias 
+  Es utilizado para realizar todas las conexiones necesarias.
+  Las conexiones quedan de la siguiente manera: 
+  
 
 # Resultados importantes 
 
@@ -44,8 +46,8 @@ Ahora bien, los resultados del sistema anti rebote, en multisim son los siguient
 
 ![Diagrama del Bloque 1](../../Imagenes/Filtro_anti_rebote_fis_mul.PNG)
 
-Donde en este se logra evidenciar el cambio, cuando el botón se activa, gráfica de color azul, nos da cómo respuesta la parte roja,
+Donde en este se logra evidenciar el cambio, cuando el botón se activa, gráfica de color azul pasa a bajo, nos da cómo respuesta la parte roja, que pasa en alto, esta parte roja es la salida el LMC555. Además, es necesario recordar que el multisim es idealizado por eso no se ve ruido al accionar el botón.
 
-Cuando se ensamblo el circuito físico para corroborar esto se tiene lo siguiente: 
+Cuando se ensamblo el circuito físico para corroborar la simulación por medio de un osciloscopio se obtuvo lo siguiente: 
 
-![Diagrama del Bloque 1](../../Imagenes/Filtro_anti_rebote_fis_mul.PNG)
+![Diagrama del Bloque 1](../../Imagenes/Filtro_anti_rebote_fis.PNG)
