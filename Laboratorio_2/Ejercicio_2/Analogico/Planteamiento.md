@@ -3,8 +3,11 @@
 ## a) Filtro anti rebote:
 
   Está parte es física, se implemento por medio de un LMC555, para mayor estabildiad y que no tenga tanto ruido al pulsar el botón.
-  ![Diagrama del Bloque 1](../../Imagenes/Diseno_fisico_mul.PnG)
+  ![Diagrama del Bloque 1](../../Imagenes/Diseno_fisico_mul.PNG)
 
+  Este diseño se realizó primeramente en multisim para corroborar su funcionamiento  donde el cable de color azul sería la señal sin filtrar, y el cable de color rojo conectado al osciloscopio es la salida ya filtrada.
+  Cabe mecionar que el sistema funciona a un tiempo que se denota por la ecuación 1.1RC, esto con los valores reales que se muetran a la figura da un resultado de 0.010607289 s.
+  
 ## b) Sincronizador:
 
   En sí la señal al provenir de un botón que es un instrumento asincrónico, es necesario sincronizarlo para que este funcione correctamente en la FPGA. Esto se logra utilizando dos flip-flop en serie, el primero se encarga de tomar la señal asincrónica, y el segundo la entrega ya estabilizada al dominio del reloj. Con esto se asegura que la señal queda sincronizada con el reloj.
@@ -29,10 +32,20 @@
 
 Se debe mencionar que se realiza un testbench para el módulo top. Para obtener todos los resultados fue neceesario utiliza run -all, para ejecutar todo de forma correcta.
 
-![Diagrama del Bloque 1](../../Imagenes/Digital.PNG)
+![Diagrama del Bloque 1](../../Imagenes/Analogica.PNG)
 
 Este es un zoom de una de las partes para lograr ver cómo interactúa todo de forma más concreta.
 
-![Diagrama del Bloque 1](../../Imagenes/Digital_2.PNG)
+![Diagrama del Bloque 1](../../Imagenes/Analogica_2.PNG)
 
 Y este ya sería el resultado total, donde solo se realizaron 3 pulsaciones del botón porque mi computadora no soporta más que eso, pero si es posible de realizar para ver todo el proceso.
+
+Ahora bien, los resultados del sistema anti rebote, en multisim son los siguiente:
+
+![Diagrama del Bloque 1](../../Imagenes/Filtro_anti_rebote_fis_mul.PNG)
+
+Donde en este se logra evidenciar el cambio, cuando el botón se activa, gráfica de color azul, nos da cómo respuesta la parte roja,
+
+Cuando se ensamblo el circuito físico para corroborar esto se tiene lo siguiente: 
+
+![Diagrama del Bloque 1](../../Imagenes/Filtro_anti_rebote_fis_mul.PNG)
