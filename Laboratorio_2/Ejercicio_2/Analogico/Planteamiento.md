@@ -28,6 +28,7 @@
 
   Es utilizado para realizar todas las conexiones necesarias.
   Las conexiones quedan de la siguiente manera: 
+  ![Diagrama del Bloque 1](../../Imagenes/Diagrama_TOP_Analogico.PNG)
   
 
 # Resultados importantes 
@@ -50,4 +51,4 @@ Donde en este se logra evidenciar el cambio, cuando el botón se activa, gráfic
 
 Cuando se ensamblo el circuito físico para corroborar la simulación por medio de un osciloscopio se obtuvo lo siguiente: 
 
-![Diagrama del Bloque 1](../../Imagenes/Filtro_anti_rebote_fis.PNG)
+![Diagrama del Bloque 1](../../Imagenes/Filtro_anti_rebote_fis.png)
