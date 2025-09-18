@@ -25,3 +25,13 @@
   Es utilizado para realizar todas las conexiones necesarias 
 
 # Resultados importantes 
+
+Se debe mencionar que se realiza un testbench para el módulo top. Para obtener todos los resultados fue neceesario utiliza run -all, para ejecutar todo de forma correcta.
+
+![Diagrama del Bloque 1](../../Imagenes/Digital.PNG)
+
+Este es un zoom de una de las partes para lograr ver cómo interactúa todo de forma más concreta.
+
+![Diagrama del Bloque 1](../../Imagenes/Digital_2.PNG)
+
+Y este ya sería el resultado total, donde solo se realizaron 3 pulsaciones del botón porque mi computadora no soporta más que eso, pero si es posible de realizar para ver todo el proceso.
