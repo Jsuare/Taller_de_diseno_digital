@@ -54,7 +54,7 @@ module MiniUnidadCalculo_tb;
 
         // Reset inicial
         rst = 1; sw = 0; boton = 0;
-      #100 rst = 0; #6_000_000;
+      #100 rst = 0; #1000;
 
         ///////////////////////////////////////////////////////////////////////////////////////////
 
@@ -64,114 +64,82 @@ module MiniUnidadCalculo_tb;
 
             // primer WE (Data_A)
             wait (dut.WE == 1'b1);
-            @(posedge clk);
-            $display("Primer WE en %t", $time);
+            boton = 4'b0001;  // operación SUMA
+            @(posedge clk); @(posedge clk);
 
             // segundo WE (Data_B)
             wait (dut.WE == 1'b1);
-            @(posedge clk);
-            $display("Segundo WE en %t", $time);
+            @(posedge clk); @(posedge clk);
 
-            // Activar botón
-            repeat (5) @(posedge clk);
-            boton = 4'b0001;  // operación SUMA
-            $display("Botón activado en %t", $time);
-
-            // Esperar al WE de la operación
+            // tercer WE (Op_result)
             wait (dut.WE == 1'b1);
-            $display("Tercer WE (operación) en %t", $time);
-
-            // Soltar botón
-            repeat (5) @(posedge clk);
-            boton = 4'b0000;
-            $display("Botón desactivado en %t", $time);
+            @(posedge clk); @(posedge clk);
+            boton = 4'b0000;    // Soltar botón
+            expected_result = dut.rs1 + dut.rs2;
+            check_alu();
 
             // RESTA ///////////////////////////////////////////////////////////////////////////////////
 
             // primer WE (Data_A)
             wait (dut.WE == 1'b1);
-            @(posedge clk);
-            $display("Primer WE en %t", $time);
+            boton = 4'b0010;  // operación RESTA
+            @(posedge clk); @(posedge clk);
 
             // segundo WE (Data_B)
             wait (dut.WE == 1'b1);
-            @(posedge clk);
-            $display("Segundo WE en %t", $time);
+            @(posedge clk); @(posedge clk);
 
-            // Activar botón
-            repeat (5) @(posedge clk);
-            boton = 4'b0010;  // operación RESTA
-            $display("Botón activado en %t", $time);
-
-            // Esperar al WE de la operación
+            // tercer WE (Op_result)
             wait (dut.WE == 1'b1);
-            $display("Tercer WE (operación) en %t", $time);
-
-            // Soltar botón
-            repeat (5) @(posedge clk);
-            boton = 4'b0000;
-            $display("Botón desactivado en %t", $time);
+            @(posedge clk); @(posedge clk);
+            boton = 4'b0000;    // Soltar botón
+            expected_result = dut.rs1 - dut.rs2;
+            check_alu();
 
             // AND ///////////////////////////////////////////////////////////////////////////////////
 
             // primer WE (Data_A)
             wait (dut.WE == 1'b1);
-            @(posedge clk);
-            $display("Primer WE en %t", $time);
+            boton = 4'b0100;  // operación AND
+            @(posedge clk); @(posedge clk);
 
             // segundo WE (Data_B)
             wait (dut.WE == 1'b1);
-            @(posedge clk);
-            $display("Segundo WE en %t", $time);
+            @(posedge clk); @(posedge clk);
 
-            // Activar botón
-            repeat (5) @(posedge clk);
-            boton = 4'b0100;  // operación AND
-            $display("Botón activado en %t", $time);
-
-            // Esperar al WE de la operación
+            // tercer WE (Op_result)
             wait (dut.WE == 1'b1);
-            $display("Tercer WE (operación) en %t", $time);
-
-            // Soltar botón
-            repeat (5) @(posedge clk);
-            boton = 4'b0000;
-            $display("Botón desactivado en %t", $time);
+            @(posedge clk); @(posedge clk);
+            boton = 4'b0000;    // Soltar botón
+            expected_result = dut.rs1 & dut.rs2;
+            check_alu();
 
             // OR ///////////////////////////////////////////////////////////////////////////////////
 
             // primer WE (Data_A)
             wait (dut.WE == 1'b1);
-            @(posedge clk);
-            $display("Primer WE en %t", $time);
+            boton = 4'b1000;  // operación OR
+            @(posedge clk); @(posedge clk);
 
             // segundo WE (Data_B)
             wait (dut.WE == 1'b1);
-            @(posedge clk);
-            $display("Segundo WE en %t", $time);
+            @(posedge clk); @(posedge clk);
 
-            // Activar botón
-            repeat (5) @(posedge clk);
-            boton = 4'b1000;  // operación OR
-            $display("Botón activado en %t", $time);
-
-            // Esperar al WE de la operación
+            // tercer WE (Op_result)
             wait (dut.WE == 1'b1);
-            $display("Tercer WE (operación) en %t", $time);
-
-            // Soltar botón
-            repeat (5) @(posedge clk);
-            boton = 4'b0000;
-            $display("Botón desactivado en %t", $time);
+            @(posedge clk); @(posedge clk);
+            boton = 4'b0000;    // Soltar botón
+            expected_result = dut.rs1 | dut.rs2;
+            check_alu();
 
         end
 
         ///////////////////////////////////////////////////////////////////////////////////////////
 
         // Activar modo lectura
-        sw = 1; #6_000_000;
+        sw = 1; #125_000;
 
-        $display("Simulación terminada correctamente.");
+        $display("Simulacion terminada correctamente.");
         $stop;
 
     end
