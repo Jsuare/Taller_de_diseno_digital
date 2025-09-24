@@ -17,7 +17,7 @@ set_property IOSTANDARD LVCMOS33 [get_ports reset]
 ## ================================
 ## BOTÓN EXTERNO (entrada limpia por hardware)
 ## ================================
-set_property PACKAGE_PIN U12 [get_ports boton_entrada]
+set_property PACKAGE_PIN C17 [get_ports boton_entrada]
 set_property IOSTANDARD LVCMOS33 [get_ports boton_entrada]
 set_property PULLDOWN true [get_ports boton_entrada]   ;# asegura que está en 0 si queda flotante
 
@@ -47,3 +47,4 @@ set_property IOSTANDARD LVCMOS33 [get_ports {leds[6]}]
 
 set_property PACKAGE_PIN V16 [get_ports {leds[7]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {leds[7]}]
+
