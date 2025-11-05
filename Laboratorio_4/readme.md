@@ -77,3 +77,9 @@ para leer o escribir datos/instrucciones a un periférico?
 
 5. Investigue sobre el uso de los IP-Cores en Vivado para memorias RAM y ROM, así como el
 ADC para entradas analógicas.
+
+
+# Referencia:
+1.	“Home,” RISC-V International, 04-Sept-2024. [Online]. Available: http://riscv.org/. [Accessed: 05-Nov-2025].
+2.	“Ratified specification,” RISC-V International, 27-Aug-2024. [Online]. Available: https://riscv.org/specifications/ratified/. [Accessed: 05-Nov-2025].
+3.	“RV32I, RV64I Instructions — riscv-isa-pages documentation,” Github.io. [Online]. Available: https://msyksphinz-self.github.io/riscv-isadoc/html/rvi.html. [Accessed: 05-Nov-2025].
