@@ -1,6 +1,6 @@
 
 //  - Auto TX 'A' cada ~0.5 s 
-//  - LED de evento TX listo y RX listo
+//  - LED de  TX listo y RX 
 //  - LEDs[7:0] muestran el byte recibido
 // ===========================================================
 module top_uart_diag (
@@ -25,7 +25,7 @@ module top_uart_diag (
     // Heartbeat (~1 Hz) en LED6
     // ----------------------------
     logic hb;
-    localparam int HB_DIV = 16_000_000/2; // ~0.5 s por flanco → ~1 Hz
+    localparam int HB_DIV = 16_000_000/2; // ~0.5 s por flanco 
     int hb_cnt;
     always_ff @(posedge clk_16MHz or negedge pll_locked) begin
         if (!pll_locked) begin
