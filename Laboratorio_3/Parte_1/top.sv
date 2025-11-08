@@ -1,6 +1,4 @@
 // ===========================================================
-// Top UART con botón de envío - Nexys4 DDR
-// Carlos Hurtado Villalobos
 // -----------------------------------------------------------
 // - Presionar BTNU → envía la letra 'A' (0x41) al PC.
 // - Los LEDs [7:0] muestran el último byte recibido.
@@ -17,7 +15,7 @@ module top_uart_button (
 );
 
     // ----------------------------
-    // Señales internas
+    // Señales internas con el de la IP
     // ----------------------------
     logic clk_16MHz, pll_locked;
     logic tx_rdy, rx_data_rdy;
