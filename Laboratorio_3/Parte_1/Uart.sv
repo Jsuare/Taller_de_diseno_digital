@@ -2,7 +2,7 @@
 // UART.sv
 // Conversión de VHDL  a SystemVerilog para más  fácil
 // Integra UART_tx y UART_rx
-// Carlos Hurtado Villalobos
+
 // ===========================================================
 
 module UART (
