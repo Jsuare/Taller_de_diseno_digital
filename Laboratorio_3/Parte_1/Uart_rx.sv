@@ -1,7 +1,7 @@
 // ===========================================================
 // UART_rx.sv
-// Conversión de VHDL → SystemVerilog
-// Carlos Hurtado Villalobos
+// Conversión de VHDL a  SystemVerilog
+
 // ===========================================================
 
 module UART_rx #(
