@@ -1,7 +1,7 @@
 // ===========================================================
 // UART_tx.sv
-// Conversión de VHDL → SystemVerilog
-// Carlos Hurtado Villalobos
+// Conversión de VHDL a  SystemVerilog
+
 // ===========================================================
 
 module UART_tx #(
@@ -144,3 +144,4 @@ module UART_tx #(
     end
 
 endmodule
+
