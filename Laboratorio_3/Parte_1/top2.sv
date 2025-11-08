@@ -22,7 +22,7 @@ module top_uart_diag (
     );
 
     // ----------------------------
-    // Heartbeat (~1 Hz) en LED6
+   
     // ----------------------------
     logic hb;
     localparam int HB_DIV = 16_000_000/2; // ~0.5 s por flanco 
