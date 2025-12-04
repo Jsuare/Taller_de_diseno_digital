@@ -69,11 +69,17 @@ RISC-V es una arquitectura de instrucciones poderosa y versátil, con un diseño
 2. Investigue sobre las diferencias entre un lenguaje de programación como C y ensamblador.
 Explique qué es bare-metal programming.
 
+La principal diferencia entre C y ensamblador es que C es un lenguaje de alto nivel, lo que significa que posee funciones, estructuras y tipos de datos ya predefinidas, entre otros, donde estas funciones/estructuras funcionan como un conjunto de instrucciones ya estipulado, mientras que ensamblador se considera de bajo nivel debido a que cada línea de código corresponde a una instrucción a ejecutar directamente en el procesador, utilizando una sintaxis menos amigable y más diferente a la que se utiliza al escribir código en C.
+
 3. Investigue sobre cómo se almacenan los datos en una memoria. ¿Qué es little-endian y
 big-endian?
 
+La memoria es una secuencia lineal de celdas de un determinado tamaño (por ejemplo de 4 bytes), donde cada celda posee una dirección única con la que se puede acceder a ella. Cuando se desea almacenar o leer el dato contenido en alguna celda, es importante saber el formato que se utiliza, el cual puede ser little-endian o big-endian, los cuales indican el orden en que se guardaron los bytes. Por ejemplo, en little-endian, el bit más significativo se almacena en la parte más baja de la celda, mientras que en big-endian el MSB se almacena en la parte más alta de la celda.
+
 4. Explique el concepto de periféricos mapeados en memoria. ¿Cuál es el método utilizado
 para leer o escribir datos/instrucciones a un periférico?
+
+Tener periféricos mapeados a memoria significa que los periféricos se conectan de forma que, cuando se intente escribir en un determinado registro, en lugar de sobreescribir el registro como normalmente ocurirría, lo que sucede es que el periférico es el que recibe la señal de forma directa, y actúa de acuerdo a su programación. Esto quiere decir que los espacios en memoria reservados para los periféricos, por ejemplo el display de 7 segmentos, cuando se intenta escribir un nuevo valor en ese registro en específico, lo que ocurre es que el display actualiza su valor y empieza a mostrar el valor nuevo. De esta forma se pueden integrar distintos periféricos de forma sencilla en un mismo sistema.
 
 5. Investigue sobre el uso de los IP-Cores en Vivado para memorias RAM y ROM, así como el
 ADC para entradas analógicas.
